@@ -1,45 +1,49 @@
-import NextAuth from 'next-auth'
-import { utils } from 'ethers'
-import CredentialsProvider from 'next-auth/providers/credentials'
+import NextAuth from "next-auth";
+import { utils } from "ethers";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 export default NextAuth({
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
         address: {
-          label: 'Address',
-          type: 'text',
-          placeholder: '0x0',
+          label: "Address",
+          type: "text",
+          placeholder: "0x0",
         },
       },
       async authorize(credentials) {
         if (!Boolean(utils.getAddress(credentials?.address!))) {
-          return null
+          return null;
         }
+
+        // DEV: Log address to console.
+        console.log("Address: ", credentials?.address);
+
         return {
           id: credentials?.address,
-        }
+        };
       },
     }),
   ],
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
   },
   jwt: {
     secret: process.env.JWT_SECRET,
   },
   callbacks: {
     async session({ session, token }) {
-      session.address = token.sub
-      return session
+      session.address = token.sub;
+      return session;
     },
   },
   secret: process.env.NEXT_AUTH_SECRET,
   pages: {
-    signIn: '/',
-    signOut: '/',
-    error: '/',
-    newUser: '/',
+    signIn: "/",
+    signOut: "/",
+    error: "/",
+    newUser: "/",
   },
-})
+});

@@ -9,9 +9,38 @@ deployUrl: https://vercel.com/new/clone?repository-url=https://github.com/vercel
 demoUrl: https://web3-sessions.vercel.app/
 ---
 
+
+---
+
+
 # Web3 Sessions
 
 This example shows how create sessions in Next.js with [Metamask](https://metamask.io/) and [NextAuth.js](https://next-auth.js.org/).
+
+--- 
+
+
+
+## Session Architecture
+
+---
+
+User -> Client -> Session -> Cookie
+
+Server -> Session
+
+
+----
+
+Server -> pages/api/[...nextauth].ts
+
+
+Client
+  |
+  |---Login and create session -> pages/index
+  |---Auth protected page -> pages/protected: 
+
+---
 
 ## Demo
 

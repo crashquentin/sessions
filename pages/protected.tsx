@@ -4,9 +4,17 @@ import { NextPageContext } from 'next'
 
 import { useProtected } from '../hooks/useProtected'
 import { Snippet } from '../components/Snippet'
+import {useEffect} from 'react'
 
 function Protected() {
   const handleLogout = useProtected()
+
+    // Similar to componentDidMount and componentDidUpdate:
+    useEffect(() => {
+      getSession().then((session) => {
+        console.log(session)
+      })
+    },[]);
 
   return (
     <Page>
